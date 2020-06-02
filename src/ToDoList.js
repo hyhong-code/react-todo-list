@@ -61,10 +61,12 @@ class ToDoList extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Todo List</h1>
-        <ul>{this.generateTodos()}</ul>
+      <div className="TodoList">
+        <h1>
+          Todo List <span>made with React</span>{" "}
+        </h1>{" "}
         <NewToDoForm addNewItem={this.addNewItem} />
+        <ul>{this.generateTodos()}</ul>
       </div>
     );
   }
