@@ -7,15 +7,18 @@ class ToDoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [{ item: "learn react", id: uuidv4() }],
+      todos: [{ item: "learn react", id: uuidv4(), isCompleted: false }],
     };
     this.addNewItem = this.addNewItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.editItem = this.editItem.bind(this);
+    this.toggleComplete = this.toggleComplete.bind(this);
   }
 
   addNewItem(item) {
-    this.setState((ps) => ({ todos: [...ps.todos, { item, id: uuidv4() }] }));
+    this.setState((ps) => ({
+      todos: [...ps.todos, { item, id: uuidv4(), isCompleted: false }],
+    }));
   }
 
   removeItem(removeId) {
@@ -33,13 +36,25 @@ class ToDoList extends Component {
     this.setState({ todos: newToDoList });
   }
 
+  toggleComplete(completedId) {
+    const newToDoList = this.state.todos.map((todo) => {
+      if (todo.id === completedId) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+      return todo;
+    });
+    this.setState({ todos: newToDoList });
+  }
+
   generateTodos() {
     return this.state.todos.map((todo) => (
       <ToDo
         key={todo.id}
         todo={todo}
+        completed={todo.isCompleted}
         removeItem={this.removeItem}
         editItem={this.editItem}
+        toggleComplete={this.toggleComplete}
       />
     ));
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./ToDo.css";
 
 class ToDo extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ToDo extends Component {
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleComplete = this.handleComplete.bind(this);
   }
 
   handleRemoveClick() {
@@ -47,12 +49,21 @@ class ToDo extends Component {
     );
   }
 
+  handleComplete() {
+    this.props.toggleComplete(this.props.todo.id);
+  }
+
   generateTodo() {
     return (
       <div>
         <button onClick={this.handleEditClick}>Edit</button>
         <button onClick={this.handleRemoveClick}>X</button>
-        <h3>{this.props.todo.item}</h3>
+        <h3
+          className={this.props.completed ? "completed" : ""}
+          onClick={this.handleComplete}
+        >
+          {this.props.todo.item}
+        </h3>
       </div>
     );
   }
