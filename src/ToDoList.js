@@ -11,6 +11,7 @@ class ToDoList extends Component {
     };
     this.addNewItem = this.addNewItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.editItem = this.editItem.bind(this);
   }
 
   addNewItem(item) {
@@ -22,9 +23,24 @@ class ToDoList extends Component {
     this.setState({ todos: newTodoList });
   }
 
+  editItem(editId, updatedItem) {
+    const newToDoList = this.state.todos.map((todo) => {
+      if (todo.id === editId) {
+        return { ...todo, item: updatedItem };
+      }
+      return todo;
+    });
+    this.setState({ todos: newToDoList });
+  }
+
   generateTodos() {
     return this.state.todos.map((todo) => (
-      <ToDo key={todo.id} todo={todo} removeItem={this.removeItem} />
+      <ToDo
+        key={todo.id}
+        todo={todo}
+        removeItem={this.removeItem}
+        editItem={this.editItem}
+      />
     ));
   }
 
@@ -32,7 +48,7 @@ class ToDoList extends Component {
     return (
       <div>
         <h1>Todo List</h1>
-        {this.generateTodos()}
+        <ul>{this.generateTodos()}</ul>
         <NewToDoForm addNewItem={this.addNewItem} />
       </div>
     );
