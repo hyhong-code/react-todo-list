@@ -10,15 +10,21 @@ class ToDoList extends Component {
       todos: [{ item: "learn react", id: uuidv4() }],
     };
     this.addNewItem = this.addNewItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   addNewItem(item) {
     this.setState((ps) => ({ todos: [...ps.todos, { item, id: uuidv4() }] }));
   }
 
+  removeItem(removeId) {
+    const newTodoList = this.state.todos.filter(({ id }) => id !== removeId);
+    this.setState({ todos: newTodoList });
+  }
+
   generateTodos() {
     return this.state.todos.map((todo) => (
-      <ToDo key={todo.id} item={todo.item} />
+      <ToDo key={todo.id} todo={todo} removeItem={this.removeItem} />
     ));
   }
 
