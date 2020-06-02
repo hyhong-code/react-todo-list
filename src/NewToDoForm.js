@@ -17,6 +17,7 @@ class NewToDoForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+    this.props.addNewItem(this.state.item);
   }
 
   render() {

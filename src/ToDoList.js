@@ -9,10 +9,17 @@ class ToDoList extends Component {
     this.state = {
       todos: [{ item: "learn react", id: uuidv4() }],
     };
+    this.addNewItem = this.addNewItem.bind(this);
+  }
+
+  addNewItem(item) {
+    this.setState((ps) => ({ todos: [...ps.todos, { item, id: uuidv4() }] }));
   }
 
   generateTodos() {
-    return this.state.todos.map((todo) => <ToDo item={todo.item} />);
+    return this.state.todos.map((todo) => (
+      <ToDo key={todo.id} item={todo.item} />
+    ));
   }
 
   render() {
@@ -20,7 +27,7 @@ class ToDoList extends Component {
       <div>
         <h1>Todo List</h1>
         {this.generateTodos()}
-        <NewToDoForm />
+        <NewToDoForm addNewItem={this.addNewItem} />
       </div>
     );
   }
