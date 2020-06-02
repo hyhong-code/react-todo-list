@@ -4,7 +4,9 @@ class ToDo extends Component {
   render() {
     return (
       <div>
-        <h3>Item</h3>
+        <h3>{this.props.item}</h3>
+        <button>Edit</button>
+        <button>Delete</button>
       </div>
     );
   }
